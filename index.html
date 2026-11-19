@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Quiz</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+
+    <!-- Start screen -->
+    <section id="start-screen" class="screen">
+      <h1>French Spelling Quiz</h1>
+      <p class="subtitle">Type the French word for each English word. Accents are optional —
+        for "table", both "é" and its accent-less spelling are accepted (e.g. <em>répété</em> or <em>repete</em>).</p>
+      <div class="settings">
+        <label>Words: <input type="number" id="setting-words" min="5" max="200" step="5" value="100"></label>
+        <label>Time (min): <input type="number" id="setting-minutes" min="1" max="60" value="10"></label>
+        <label>Type: <select id="setting-type">
+          <option value="all" selected>All</option>
+          <option value="verb">Verbs</option>
+        </select></label>
+      </div>
+      <button id="btn-start" class="btn btn-primary">Start quiz</button>
+      <p id="data-info" class="muted"></p>
+    </section>
+
+    <!-- Quiz screen -->
+    <section id="quiz-screen" class="screen hidden">
+      <header class="quiz-header">
+        <div class="stat" id="stat-progress">0 / 100</div>
+        <div class="stat" id="stat-timer">10:00</div>
+        <button id="btn-giveup" class="btn btn-danger">Give up</button>
+      </header>
+      <div id="quiz-grid" class="quiz-grid"></div>
+    </section>
+
+    <!-- Results screen -->
+    <section id="results-screen" class="screen hidden">
+      <h1 id="results-title">Results</h1>
+      <p id="results-summary"></p>
+      <div id="results-grid" class="results-grid"></div>
+      <button id="btn-again" class="btn btn-primary">Play again</button>
+    </section>
+
+    <!-- Time's up modal -->
+    <div id="modal-timeup" class="modal hidden">
+      <div class="modal-box">
+        <h2>Time's up!</h2>
+        <p>Your time is over. Extend the clock by one more minute, or give up and see your results.</p>
+        <div class="modal-actions">
+          <button id="btn-extend" class="btn btn-primary">Extend by 1 min</button>
+          <button id="btn-giveup-modal" class="btn btn-danger">Give up</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Give up confirmation modal -->
+    <div id="modal-giveup" class="modal hidden">
+      <div class="modal-box">
+        <h2>Give up?</h2>
+        <p>This will end the quiz and score what you've answered so far.</p>
+        <div class="modal-actions">
+          <button id="btn-giveup-yes" class="btn btn-danger">Yes, give up</button>
+          <button id="btn-giveup-no" class="btn btn-secondary">Keep playing</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <script src="data.js"></script>
+  <script src="quiz-core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
