@@ -16,8 +16,12 @@
       .trim();
   }
 
-  function isCorrect(guess, answer) {
-    return normalizeAnswer(guess).length > 0 && normalizeAnswer(guess) === normalizeAnswer(answer);
+  function isCorrect(guess, answer, alts) {
+    const g = normalizeAnswer(guess);
+    if (!g) return false;
+    if (g === normalizeAnswer(answer)) return true;
+    if (Array.isArray(alts)) return alts.some(a => g === normalizeAnswer(a));
+    return false;
   }
 
   // Fisher–Yates; rnd is injectable so tests are deterministic.
@@ -48,7 +52,7 @@
         item,
         given,
         answered: given.length > 0,
-        correct: isCorrect(given, item.fr),
+        correct: isCorrect(given, item.fr, item.alt),
       };
     });
   }

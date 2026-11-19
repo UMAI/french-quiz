@@ -20,6 +20,18 @@ assert.strictEqual(C.isCorrect('maison', 'montagne'), false);
 assert.strictEqual(C.isCorrect('', 'maison'), false);
 assert.strictEqual(C.isCorrect('  ', 'maison'), false);
 
+// isCorrect with alternate accepted spellings (alt list)
+assert.strictEqual(C.isCorrect('soulier', 'chaussure', ['soulier', 'godasse']), true);
+assert.strictEqual(C.isCorrect('Godasse', 'chaussure', ['soulier', 'godasse']), true);
+assert.strictEqual(C.isCorrect('souliers', 'chaussure', ['soulier']), false);
+assert.strictEqual(C.isCorrect('soulier', 'chaussure'), false);
+
+// grade honors alt spellings
+const itemsAlt = [{ fr: 'chaussure', en: 'shoe', alt: ['soulier'] }, { fr: 'chien', en: 'dog' }];
+const ga = C.grade(itemsAlt, ['soulier', 'chien']);
+assert.strictEqual(ga[0].correct, true);
+assert.strictEqual(ga[1].correct, true);
+
 // shuffle determinism
 const seq = [0, 0.5, 0.9, 0.1, 0.3, 0.7, 0.25, 0.75, 0.6, 0.15];
 const makeRnd = () => { let c = 0; return () => seq[c++ % seq.length]; };

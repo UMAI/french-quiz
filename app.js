@@ -132,7 +132,7 @@
     var cell = state.inputs[idx];
 
     // Live check: lock the cell green as soon as the word matches (no Enter needed).
-    if (C.isCorrect(val, state.items[idx].fr)) {
+    if (C.isCorrect(val, state.items[idx].fr, state.items[idx].alt)) {
       lockCell(cell, state.items[idx].fr);
       updateProgress();
       var next = nextUnansweredAfter(idx);
@@ -293,7 +293,9 @@
 
         var tdFr = document.createElement('td');
         tdFr.className = 'answer-fr';
-        tdFr.textContent = r.item.fr;
+        tdFr.textContent = r.item.alt && r.item.alt.length
+          ? r.item.fr + ' / ' + r.item.alt.join(' / ')
+          : r.item.fr;
 
         tr.appendChild(tdNum);
         tr.appendChild(tdEn);
