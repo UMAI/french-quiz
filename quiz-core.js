@@ -16,12 +16,20 @@
       .trim();
   }
 
-  function isCorrect(guess, answer, alts) {
+  // Returns the canonical answer word that `guess` matches (primary or one of
+  // the accepted alternates), or null if no match.
+  function matchWord(guess, answer, alts) {
     const g = normalizeAnswer(guess);
-    if (!g) return false;
-    if (g === normalizeAnswer(answer)) return true;
-    if (Array.isArray(alts)) return alts.some(a => g === normalizeAnswer(a));
-    return false;
+    if (!g) return null;
+    if (g === normalizeAnswer(answer)) return answer;
+    if (Array.isArray(alts)) {
+      for (const a of alts) if (g === normalizeAnswer(a)) return a;
+    }
+    return null;
+  }
+
+  function isCorrect(guess, answer, alts) {
+    return matchWord(guess, answer, alts) !== null;
   }
 
   // Fisher–Yates; rnd is injectable so tests are deterministic.
@@ -64,5 +72,5 @@
     return cols;
   }
 
-  return { normalizeAnswer, isCorrect, shuffle, pickRandom, formatTime, grade, makeColumns };
+  return { normalizeAnswer, matchWord, isCorrect, shuffle, pickRandom, formatTime, grade, makeColumns };
 });

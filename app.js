@@ -132,8 +132,10 @@
     var cell = state.inputs[idx];
 
     // Live check: lock the cell green as soon as the word matches (no Enter needed).
-    if (C.isCorrect(val, state.items[idx].fr, state.items[idx].alt)) {
-      lockCell(cell, state.items[idx].fr);
+    var item = state.items[idx];
+    var matched = C.matchWord(val, item.fr, item.alt);
+    if (matched) {
+      lockCell(cell, matched);
       updateProgress();
       var next = nextUnansweredAfter(idx);
       if (next === -1) next = nextUnansweredAfter(-1);

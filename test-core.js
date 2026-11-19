@@ -26,6 +26,13 @@ assert.strictEqual(C.isCorrect('Godasse', 'chaussure', ['soulier', 'godasse']), 
 assert.strictEqual(C.isCorrect('souliers', 'chaussure', ['soulier']), false);
 assert.strictEqual(C.isCorrect('soulier', 'chaussure'), false);
 
+// matchWord returns the exact accepted word that was matched
+assert.strictEqual(C.matchWord('soulier', 'chaussure', ['soulier', 'godasse']), 'soulier');
+assert.strictEqual(C.matchWord('GODASSE', 'chaussure', ['soulier', 'godasse']), 'godasse');
+assert.strictEqual(C.matchWord('chaussure', 'chaussure', ['soulier']), 'chaussure');
+assert.strictEqual(C.matchWord('xxxx', 'chaussure', ['soulier']), null);
+assert.strictEqual(C.matchWord('', 'chaussure', ['soulier']), null);
+
 // grade honors alt spellings
 const itemsAlt = [{ fr: 'chaussure', en: 'shoe', alt: ['soulier'] }, { fr: 'chien', en: 'dog' }];
 const ga = C.grade(itemsAlt, ['soulier', 'chien']);
